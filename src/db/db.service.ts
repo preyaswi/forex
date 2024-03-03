@@ -1,0 +1,12 @@
+import { Injectable, OnModuleInit } from '@nestjs/common';
+import { PrismaClient } from '@prisma/client';
+
+@Injectable()
+export class DbService extends PrismaClient implements OnModuleInit {
+
+  async onModuleInit() {
+      this.$connect()
+      console.log('db connected');
+      
+  }
+}
