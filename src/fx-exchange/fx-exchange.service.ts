@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateFxExchangeDto } from './dto/create-fx-exchange.dto';
 import { DbService } from 'src/db/db.service';
-import { identity } from 'rxjs';
 
 @Injectable()
 export class FxExchangeService {

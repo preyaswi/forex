@@ -25,8 +25,11 @@ export class UserService {
         Id:id
       },
       include: {
-        Accounts: true,
-        Currency:true
+        Accounts: {
+          include: {
+            Currency:true
+          }
+        },
       }
     })
   }
