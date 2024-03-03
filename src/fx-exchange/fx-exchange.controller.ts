@@ -9,7 +9,9 @@ import {
 } from '@nestjs/common';
 import { FxExchangeService } from './fx-exchange.service';
 import { CreateFxExchangeDto } from './dto/create-fx-exchange.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('account')
 @Controller('account')
 export class FxExchangeController {
   constructor(private readonly fxExchangeService: FxExchangeService) {}
@@ -24,7 +26,7 @@ export class FxExchangeController {
     return this.fxExchangeService.findAll();
   }
 
-  @Get(':id')
+  @Get('balance/:id')
   findOne(@Param('id') id: string) {
     return this.fxExchangeService.findOne(+id);
   }

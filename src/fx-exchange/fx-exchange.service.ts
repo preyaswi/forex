@@ -75,10 +75,35 @@ export class FxExchangeService {
     return `This action returns all fxExchange`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} fxExchange`;
+  async findOne(id: number): Promise<{ balances: Record<string, number> }> {
+    const user = await this.db.user.findFirst({
+      where: {
+        Id: id
+      },
+      include: {
+        Accounts: {
+          include: {
+            Currency: true
+          }
+        },
+      }
+    });
+  
+    const balances: Record<string, number> = {};
+  
+    if (user?.Accounts) {
+      for (const account of user.Accounts) {
+        if (account.Currency) {
+          for (const currency of account.Currency) {
+            balances[currency.Name] = (balances[currency.Name] || 0) + currency.Amount;
+          }
+        }
+      }
+    }
+  
+    return { balances };
   }
-
+  
   update(id: number, updateFxExchangeDto: any) {
     return `This action updates a #${id} fxExchange`;
   }
