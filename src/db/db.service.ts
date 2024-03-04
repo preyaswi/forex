@@ -5,7 +5,7 @@ import { PrismaClient } from '@prisma/client';
 export class DbService extends PrismaClient implements OnModuleInit {
 
   async onModuleInit() {
-      this.$connect()
+      await this.$connect()
       console.log('db connected');
       
   }
