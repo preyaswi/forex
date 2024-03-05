@@ -1,13 +1,10 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateFxExchangeDto } from './dto/create-fx-exchange.dto';
 import { DbService } from 'src/db/db.service';
-import { ForexService } from 'src/forex/forex.service';
-import { randomInt, randomUUID } from 'node:crypto'
-import * as moment from 'moment';
-import { CacheService,  } from 'src/db/cache.service';
+
 @Injectable()
 export class FxExchangeService {
-  constructor(private readonly db:DbService,private readonly forexService:ForexService,private readonly cacheService:CacheService){}
+  constructor(private readonly db:DbService){}
   async create(createFxExchangeDto: CreateFxExchangeDto) {
     let account = await this.db.accounts.findFirst({
       where: {
@@ -104,29 +101,4 @@ export class FxExchangeService {
     return { balances };
   }
 
-  async fxRate() {
-    const qouteId = this.generateQuoteId().toString()
-    const expiry = moment().add(30, 'seconds');
-     this.cacheService.set(qouteId,expiry,30)
-    return {
-      qouteId,
-      expiry
-    }
-    
-  }
-
-  async convertRate(qouteId:string,fromCurrency: string, toCurrency: string, amount: number) {
-    const isExpired = await this.cacheService.get(qouteId)
-    console.log(isExpired);
-    
-    if (!isExpired) {
-      throw new BadRequestException("Time Expired")
-    }
-    return await this.forexService.fetchRate(fromCurrency,toCurrency,amount)
-  }
-  
-
-  private generateQuoteId(): number {
-    return randomInt(1000000)
-  }
 }

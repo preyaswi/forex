@@ -6,6 +6,6 @@ import { ForexService } from 'src/forex/forex.service';
 
 @Module({
   controllers: [FxExchangeController],
-  providers: [FxExchangeService,AlphaVantage,ForexService],
+  providers: [FxExchangeService],
 })
 export class FxExchangeModule {}
