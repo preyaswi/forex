@@ -6,11 +6,11 @@ import { DbService } from 'src/db/db.service';
 @Injectable()
 export class UserService {
   constructor(private readonly db:DbService){}
-  async create(createUserDto: any) {
+  async create(CreateUserDto) {
     return await this.db.user.create({
       data: {
-        Name: createUserDto.Name,
-        Password: createUserDto.Password,
+        Name: CreateUserDto.Name,
+        Password: CreateUserDto.Password,
       }
     })
   }
@@ -34,11 +34,4 @@ export class UserService {
     })
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} user`;
-  }
 }
