@@ -1,73 +1,54 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Forex System Backend Rest API
+Forex System Backend Rest API is a robust solution for handling forex-related operations, developed using NestJS, a powerful Node.js framework. The Forex Service API is a service that provides functionality for fetching live FX conversion rates using the Alphavantage API, generating quote IDs, and managing user accounts.
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# Key Features
+Dependency Injection: Utilizes dependency injection for flexible component integration.
+External API Integration: Integrates with Alpha Vantage for fetching real-time forex exchange rates.
+Cache Service: Implements caching using a cache service to optimize performance.
+Security: Utilizes exception handling and ensures secure practices in handling user input.
+Swagger API Documentation: Offers interactive API documentation using Swagger for easy exploration and testing.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+# Environment Variables:
+ Set up environment variables, including DATABASE_URL for database configuration(neondb) and API_KEY for Alpha Vantage API access.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+# API Documentation
+Interactive API documentation is available using Swagger. Explore and test the API endpoints in real-time.
+http://localhost:3000/api#/
 
-## Installation
+# Getting Started
+To run the project locally, follow these steps:
 
-```bash
-$ pnpm install
-```
+Clone the repository.
+Install dependencies using pnpm install.
+Set up environment variables, including DATABASE_URL for database configuration and API_KEY for the Alpha Vantage API.
+Build and run the project using pnpm start.
+License
+This project is licensed under the [LICENSE_NAME] license - see the LICENSE.md file for details.
 
-## Running the app
+Acknowledgments
+NestJS Framework
+Alpha Vantage API
+Swagger API Documentation
+Using forex-system project
+To use the forex-system project, follow these steps:
 
-```bash
-# development
-$ pnpm run start
+bash
+Copy code
+# Navigate into the project
+cd ./forex-system
 
-# watch mode
-$ pnpm run start:dev
+# Install dependencies
+pnpm install
 
-# production mode
-$ pnpm run start:prod
-```
+# Run the project
+pnpm start
+Environment Variables
+Before running the project, you need to set the following environment variables with your corresponding values:
 
-## Test
-
-```bash
-# unit tests
-$ pnpm run test
-
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+# Database Configuration
+DATABASE_URL: Database connection URL(used neondb)
+Alpha Vantage
+API_KEY: Alpha Vantage API key for forex rate fetching
+Cache Service
+CACHE_TTL: Time-to-live for cache entries (in seconds)
