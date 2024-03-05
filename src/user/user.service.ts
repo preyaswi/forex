@@ -6,11 +6,11 @@ import { DbService } from 'src/db/db.service';
 @Injectable()
 export class UserService {
   constructor(private readonly db:DbService){}
-  async create(CreateUserDto) {
+  async create(createUserDto:CreateUserDto) {
     return await this.db.user.create({
       data: {
-        Name: CreateUserDto.Name,
-        Password: CreateUserDto.Password,
+        Name:createUserDto.Name,
+        Password:createUserDto.Password
       }
     })
   }

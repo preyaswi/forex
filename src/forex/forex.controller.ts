@@ -13,14 +13,24 @@ export class ForexController {
   @ApiResponse({ status: 200, description: 'Forex rate fetched successfully' })
   @ApiResponse({ status: 400, description: 'Bad request' })
   async fetchRate(@Body() createForexdto: CreateForexDto) {
+    try {
     return this.forexService.fetchRate(createForexdto);
+    }catch(error){
+      console.error('Error in fetchRate:', error);
+      throw new BadRequestException('Failed to fetch forex rate');
+    }
   }
 
   @Get('fx-rate')
   @ApiOperation({ summary: 'Get forex rate and generate quote ID' })
   @ApiResponse({ status: 200, description: 'Forex rate and quote ID fetched successfully' })
   async fxRate() {
+    try {
     return this.forexService.fxRate()
+  } catch (error) {
+    console.error('Error in fxRate:', error);
+    throw new BadRequestException('Failed to generate forex rate and quote ID');
+  }
   }
 
   @Get("fx-conversion")

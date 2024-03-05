@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { CreateFxExchangeDto } from './dto/create-fx-exchange.dto';
 import { DbService } from 'src/db/db.service';
 
@@ -6,7 +6,8 @@ import { DbService } from 'src/db/db.service';
 export class FxExchangeService {
   constructor(private readonly db:DbService){}
   async create(createFxExchangeDto: CreateFxExchangeDto) {
-    let account = await this.db.accounts.findFirst({
+   try{ 
+   let account = await this.db.accounts.findFirst({
       where: {
         UserId: createFxExchangeDto.userId
       }
@@ -68,11 +69,16 @@ export class FxExchangeService {
       }
       return currenyExist
     }
+  }catch(error){
+    console.error('Error in create method:', error);
+      throw new BadRequestException('Error in create method');
+  }
 
   }
 
  
   async findOne(id: number): Promise<{ balances: Record<string, number> }> {
+    try{
     const user = await this.db.user.findFirst({
       where: {
         Id: id
@@ -85,7 +91,9 @@ export class FxExchangeService {
         },
       }
     });
-  
+  if(!user){
+    throw new NotFoundException('User not found');
+  }
     const balances: Record<string, number> = {};
   
     if (user?.Accounts) {
@@ -99,6 +107,9 @@ export class FxExchangeService {
     }
   
     return { balances };
+  }catch(error){
+    console.error('Error in findOne method:', error);
+    throw new InternalServerErrorException('Error retrieving user balances');
   }
-
+  }
 }

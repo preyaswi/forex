@@ -18,13 +18,14 @@ export class ForexService {
             return response.data
 
         } catch (e) {
-            console.log(e);
-            
+            console.error('Error in fetchRate:', e);
+      throw new BadRequestException('Failed to fetch forex rate');     
         }
         
     }
 
     async fxRate() {
+        try{
         const qouteId = this.generateQuoteId().toString()
         const expiry = moment().add(30, 'seconds');
          this.cacheService.set(qouteId,expiry,30)
@@ -32,19 +33,28 @@ export class ForexService {
           qouteId,
           expiry
         }
+    }catch(e){
+        console.error('Error in fxRate:', e);
+        throw new BadRequestException('Failed to generate forex rate and quote ID');
+    
+    }
         
       }
     
       async convertRate(createForexDto:CreateForexDto) {
+        try {
         const isExpired = await this.cacheService.get(createForexDto.qouteId)
         console.log(isExpired);
         
         if (!isExpired) {
-          throw new BadRequestException("Time Expired")
+          throw new BadRequestException('Quote ID has expired. Please request a new quote.')
         }
         return await this.fetchRate(createForexDto)
+      }catch (error) {
+        console.error('Error in convertRate:', error);
+        throw new BadRequestException('Failed to convert forex rate');
       }
-      
+    }
       private generateQuoteId(): number {
         return randomInt(1000000)
       }

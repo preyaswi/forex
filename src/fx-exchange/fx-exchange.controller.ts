@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   BadRequestException,
+  NotFoundException,
 } from '@nestjs/common';
 import { FxExchangeService } from './fx-exchange.service';
 import { CreateFxExchangeDto } from './dto/create-fx-exchange.dto';
@@ -27,7 +28,13 @@ export class FxExchangeController {
   })
   @ApiBadRequestResponse({ description: 'Bad Request' })
   async topup(@Body() createFxExchangeDto: CreateFxExchangeDto) {
-    return this.fxExchangeService.create(createFxExchangeDto);
+    try {
+      const result = await this.fxExchangeService.create(createFxExchangeDto);
+      return result;
+    } catch (error) {
+      console.error('Error in topup:', error);
+      throw new BadRequestException('Error in topup operation');
+    }
   }
 
   @Get('balance/:id')
@@ -36,7 +43,14 @@ export class FxExchangeController {
   @ApiResponse({ status: 200, description: 'User balance found', type:BalanceResponseDto })
   @ApiResponse({ status: 404, description: 'User not found' })
   async findOne(@Param('id') id: string) {
-    return this.fxExchangeService.findOne(+id);
+    try{
+      const result = await this.fxExchangeService.findOne(+id);
+      return result
+    }catch(error){
+      console.error('Error in findOne:', error);
+    throw new NotFoundException('User not found');
+    }
+    
   }
   
 }
