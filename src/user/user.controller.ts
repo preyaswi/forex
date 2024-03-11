@@ -1,6 +1,6 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, BadRequestException } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto, UserDto } from './dto/create-user.dto';
+import { CreateUserDto, LoginDto, UserDto } from './dto/create-user.dto';
 import { ApiBadRequestResponse, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('user')
@@ -31,6 +31,18 @@ export class UserController {
   @ApiResponse({ status: 404, description: 'User not found' })
   findOne(@Param('id') id: string) {
     return this.userService.findOne(+id);
+  }
+  @Post('login')
+ login(@Body() logindetail:LoginDto){
+    try{
+      
+      const result= this.userService.login(logindetail)
+      return result
+    }catch(e){
+
+      console.log(e)
+      throw new  BadRequestException("error in login",e)
+    }
   }
 
 }

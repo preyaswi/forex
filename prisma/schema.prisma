@@ -38,3 +38,12 @@ model Currency {
   Amount   Int
   Name String
 }
+model exchangeRate{
+   id             Int      @id @default(autoincrement())
+   fromCurrency String
+   toCurrency String
+  exchangeRate   Float
+  lastRefreshed  DateTime
+  bidPrice       Float
+  askPrice       Float
+}

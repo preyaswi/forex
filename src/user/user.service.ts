@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { CreateUserDto, LoginDto} from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { DbService } from 'src/db/db.service';
 
@@ -34,4 +34,21 @@ export class UserService {
     })
   }
 
+  async login(logindetail:LoginDto){
+   const user=await this.db.user.findFirst({
+    where:{
+      Name:logindetail.Name,
+      Password:logindetail.Password
+      
+    },
+   })
+  
+   if (!user) {
+    throw new BadRequestException("User not found. Please sign up.");
+  } else if (user.Password !== logindetail.Password) {
+    throw new BadRequestException("Incorrect password.");
+  } else {
+    return {userId:user.Id,message: "Signed in"};
+  }
+  }
 }
